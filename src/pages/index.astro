@@ -1,0 +1,275 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { HeaderWrapper } from '../components/layout/HeaderWrapper';
+import { Footer } from '../components/layout/Footer';
+import { ProductCard } from '../components/products/ProductCard';
+import { Button } from '../components/ui/Button';
+import { Card, CardContent } from '../components/ui/Card';
+
+// Fetch data from API endpoints
+let featuredProducts = [];
+let upcomingEvents = [];
+let categories = [];
+
+try {
+  const [productsRes, eventsRes, categoriesRes] = await Promise.all([
+    fetch(`${Astro.url.origin}/api/products?featured=true`),
+    fetch(`${Astro.url.origin}/api/events`),
+    fetch(`${Astro.url.origin}/api/categories`)
+  ]);
+
+  if (productsRes.ok) featuredProducts = await productsRes.json();
+  if (eventsRes.ok) upcomingEvents = await eventsRes.json();
+  if (categoriesRes.ok) categories = await categoriesRes.json();
+} catch (error) {
+  console.error('Error fetching data:', error);
+}
+---
+
+<Layout title="Nani Bakery - Fresh Baked Goods & Custom Cakes">
+  <HeaderWrapper client:load />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-r from-primary-50 to-secondary-50 py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 class="text-5xl lg:text-6xl font-display font-bold text-gray-900 mb-6">
+              Sweet Moments,
+              <span class="text-primary-600">Crafted Fresh</span>
+            </h1>
+            <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+              From custom celebration cakes to daily fresh pastries, we bring sweetness 
+              to every moment. Experience the art of baking with ingredients chosen with love.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <Button size="lg" class="text-lg px-8 py-4">
+                <a href="/products">Shop Now</a>
+              </Button>
+              <Button variant="outline" size="lg" class="text-lg px-8 py-4">
+                <a href="/custom-cakes">Custom Cakes</a>
+              </Button>
+            </div>
+          </div>
+          <div class="relative">
+            <img 
+              src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg" 
+              alt="Beautiful custom cake"
+              class="rounded-2xl shadow-2xl w-full h-96 object-cover"
+            />
+            <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg">
+              <div class="flex items-center space-x-3">
+                <div class="bg-primary-100 p-3 rounded-full">
+                  <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-900">4.9/5 Rating</div>
+                  <div class="text-sm text-gray-600">From 500+ reviews</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-gray-900 mb-4">
+            Featured Delights
+          </h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Discover our most popular creations, made fresh daily with premium ingredients
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredProducts?.slice(0, 6).map((product) => (
+            <ProductCard 
+              key={product.id}
+              product={product}
+              client:load
+            />
+          ))}
+        </div>
+        
+        <div class="text-center mt-12">
+          <Button size="lg" variant="outline">
+            <a href="/products">View All Products</a>
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-gray-900 mb-4">
+            Our Categories
+          </h2>
+          <p class="text-xl text-gray-600">
+            Explore our wide range of freshly baked goods
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          {categories?.map((category) => (
+            <Card key={category.id} class="group hover:shadow-lg transition-shadow cursor-pointer">
+              <CardContent class="p-6 text-center">
+                <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-200 transition-colors">
+                  <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                  </svg>
+                </div>
+                <h3 class="font-semibold text-gray-900 mb-2">{category.name}</h3>
+                <p class="text-sm text-gray-600">{category.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Custom Cakes CTA -->
+    <section class="py-16 bg-gradient-to-r from-primary-600 to-secondary-600 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl font-display font-bold mb-4">
+          Dream It, We'll Bake It
+        </h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+          Custom cakes for weddings, birthdays, and special celebrations. 
+          Let our expert bakers bring your vision to life.
+        </p>
+        <Button size="lg" variant="outline" class="bg-white text-primary-600 hover:bg-gray-50">
+          <a href="/custom-cakes">Design Your Cake</a>
+        </Button>
+      </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    {upcomingEvents && upcomingEvents.length > 0 && (
+      <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-display font-bold text-gray-900 mb-4">
+              Upcoming Events
+            </h2>
+            <p class="text-xl text-gray-600">
+              Join our baking classes and special events
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {upcomingEvents.slice(0, 3).map((event) => (
+              <Card key={event.id} class="hover:shadow-lg transition-shadow">
+                <div class="aspect-video bg-gradient-to-br from-primary-100 to-secondary-100 rounded-t-lg flex items-center justify-center">
+                  <svg class="w-16 h-16 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM4 9h12v7H4V9z" />
+                  </svg>
+                </div>
+                <CardContent class="p-6">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-primary-600 uppercase tracking-wide">
+                      {event.event_type}
+                    </span>
+                    <span class="text-sm text-gray-500">
+                      {new Date(event.date_time).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <h3 class="text-xl font-semibold text-gray-900 mb-2">{event.title}</h3>
+                  <p class="text-gray-600 mb-4 line-clamp-2">{event.description}</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-2xl font-bold text-primary-600">
+                      ${event.price_per_person}
+                    </span>
+                    <Button size="sm">
+                      <a href={`/events/${event.id}`}>Book Now</a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          
+          <div class="text-center mt-12">
+            <Button size="lg" variant="outline">
+              <a href="/events">View All Events</a>
+            </Button>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-gray-900 mb-4">
+            What Our Customers Say
+          </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <Card class="text-center">
+            <CardContent class="p-8">
+              <div class="flex justify-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} class="w-5 h-5 text-yellow-400 fill-current">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p class="text-gray-600 mb-4">
+                "The custom wedding cake exceeded all our expectations. Beautiful design and absolutely delicious!"
+              </p>
+              <div class="font-semibold text-gray-900">Sarah Johnson</div>
+              <div class="text-sm text-gray-500">Wedding Customer</div>
+            </CardContent>
+          </Card>
+          
+          <Card class="text-center">
+            <CardContent class="p-8">
+              <div class="flex justify-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} class="w-5 h-5 text-yellow-400 fill-current">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p class="text-gray-600 mb-4">
+                "Fresh pastries every morning! The croissants are the best I've had outside of France."
+              </p>
+              <div class="font-semibold text-gray-900">Michael Chen</div>
+              <div class="text-sm text-gray-500">Regular Customer</div>
+            </CardContent>
+          </Card>
+          
+          <Card class="text-center">
+            <CardContent class="p-8">
+              <div class="flex justify-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} class="w-5 h-5 text-yellow-400 fill-current">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p class="text-gray-600 mb-4">
+                "The baking workshop was amazing! Learned so much and had a great time with friends."
+              </p>
+              <div class="font-semibold text-gray-900">Emily Rodriguez</div>
+              <div class="text-sm text-gray-500">Workshop Participant</div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>

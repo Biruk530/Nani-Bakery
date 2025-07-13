@@ -1,0 +1,245 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { HeaderWrapper } from '../components/layout/HeaderWrapper';
+import { Footer } from '../components/layout/Footer';
+import { Button } from '../components/ui/Button';
+import { Card, CardContent, CardHeader } from '../components/ui/Card';
+---
+
+<Layout title="Custom Cakes - Nani Bakery">
+  <HeaderWrapper client:load />
+  
+  <main class="min-h-screen bg-gray-50">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary-50 to-secondary-50 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h1 class="text-5xl font-display font-bold text-gray-900 mb-6">
+            Custom Cake Design
+          </h1>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            Bring your dream cake to life! Our expert bakers will work with you to create 
+            the perfect centerpiece for your special celebration.
+          </p>
+          <Button size="lg" class="text-lg px-8 py-4">
+            Start Your Design
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Steps -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-gray-900 mb-4">
+            How It Works
+          </h2>
+          <p class="text-xl text-gray-600">
+            Simple steps to your perfect custom cake
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-primary-600">1</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Share Your Vision</h3>
+            <p class="text-gray-600">Tell us about your occasion, preferred flavors, and design ideas</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-primary-600">2</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Get Your Quote</h3>
+            <p class="text-gray-600">We'll provide a detailed quote and timeline for your custom cake</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-primary-600">3</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">We Create Magic</h3>
+            <p class="text-gray-600">Our skilled bakers bring your vision to life with premium ingredients</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-primary-600">4</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Celebrate!</h3>
+            <p class="text-gray-600">Pick up your masterpiece and make your celebration unforgettable</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cake Options -->
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-gray-900 mb-4">
+            Cake Options
+          </h2>
+          <p class="text-xl text-gray-600">
+            Choose from our popular options or create something entirely unique
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Sizes -->
+          <Card>
+            <CardHeader>
+              <h3 class="text-xl font-semibold text-gray-900">Sizes Available</h3>
+            </CardHeader>
+            <CardContent>
+              <ul class="space-y-2">
+                <li class="flex justify-between">
+                  <span>6" Round</span>
+                  <span class="text-gray-600">Serves 6-8</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>8" Round</span>
+                  <span class="text-gray-600">Serves 12-15</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>10" Round</span>
+                  <span class="text-gray-600">Serves 20-25</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>12" Round</span>
+                  <span class="text-gray-600">Serves 30-35</span>
+                </li>
+                <li class="flex justify-between">
+                  <span>Multi-tier</span>
+                  <span class="text-gray-600">Custom serving</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <!-- Flavors -->
+          <Card>
+            <CardHeader>
+              <h3 class="text-xl font-semibold text-gray-900">Popular Flavors</h3>
+            </CardHeader>
+            <CardContent>
+              <ul class="space-y-2">
+                <li>• Vanilla Bean</li>
+                <li>• Rich Chocolate</li>
+                <li>• Red Velvet</li>
+                <li>• Lemon Zest</li>
+                <li>• Strawberry</li>
+                <li>• Carrot Cake</li>
+                <li>• Funfetti</li>
+                <li>• Custom Flavor</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <!-- Occasions -->
+          <Card>
+            <CardHeader>
+              <h3 class="text-xl font-semibold text-gray-900">Perfect For</h3>
+            </CardHeader>
+            <CardContent>
+              <ul class="space-y-2">
+                <li>• Weddings</li>
+                <li>• Birthdays</li>
+                <li>• Anniversaries</li>
+                <li>• Baby Showers</li>
+                <li>• Graduations</li>
+                <li>• Corporate Events</li>
+                <li>• Holiday Celebrations</li>
+                <li>• Any Special Moment</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-display font-bold text-gray-900 mb-4">
+            Our Creations
+          </h2>
+          <p class="text-xl text-gray-600">
+            See some of our recent custom cake masterpieces
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+            <img 
+              src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg" 
+              alt="Wedding cake"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+            <img 
+              src="https://images.pexels.com/photos/1721932/pexels-photo-1721932.jpeg" 
+              alt="Birthday cake"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+            <img 
+              src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg" 
+              alt="Anniversary cake"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+            <img 
+              src="https://images.pexels.com/photos/1721932/pexels-photo-1721932.jpeg" 
+              alt="Custom design cake"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+            <img 
+              src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg" 
+              alt="Themed cake"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+            <img 
+              src="https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg" 
+              alt="Multi-tier cake"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-primary-600 to-secondary-600 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl font-display font-bold mb-4">
+          Ready to Create Your Dream Cake?
+        </h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+          Let's discuss your vision and create something truly special for your celebration.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button size="lg" variant="outline" class="bg-white text-primary-600 hover:bg-gray-50">
+            Request a Quote
+          </Button>
+          <Button size="lg" variant="ghost" class="text-white border-white hover:bg-white hover:text-primary-600">
+            Call Us: +251 912 959 601
+          </Button>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
